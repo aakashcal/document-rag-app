@@ -69,8 +69,7 @@ rag-backend/
 │   ├── api/
 │   │   ├── document_select.py
 │   │   ├── ingestion.py
-│   │   ├── query.py
-│   │   └── simple_upload.py
+│   │   └── query.py
 │   ├── core/
 │   │   ├── db.py
 │   │   ├── embeddings.py
@@ -140,17 +139,12 @@ The API will be available at http://localhost:8000. API documentation is availab
 ## API Endpoints
 
 ### Document Management
-* `POST /api/documents/`: Ingest a document with JSON payload
 * `POST /api/documents/upload`: Upload a document file
-* `GET /api/documents/`: Get all documents
-* `GET /api/documents/{document_id}`: Get a specific document
-* `DELETE /api/documents/{document_id}`: Delete a document
+* `GET /api/documents/list`: List all documents
+* `DELETE /api/documents/{filename}`: Delete a document by filename
 
 ### Question Answering
-* `POST /api/qa/`: Ask a question using RAG
-
-### Document Selection
-* `POST /api/document-selection/validate`: Validate document selection
+* `POST /api/query/search`: Ask a question about documents using RAG (accepts optional `document_ids` parameter to filter which documents to search)
 
 ## Vector Storage (PostgreSQL)
 
