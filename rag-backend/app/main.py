@@ -1,8 +1,13 @@
-#source venv/bin/activate 
 from fastapi import FastAPI
+from app.api import ingestion
+from app.api import query
+from app.api import document_select
 
-app = FastAPI()
-# Root endpoint that returns a simple Hello World message
-@app.get("/")
-def read_root():
-    return {"message": "Hello World"}
+# Initialize FastAPI application with title
+app = FastAPI(title="Document RAG API")
+
+# Register API routers with their respective prefixes
+# Ingestion router handles document upload and processing endpoints
+app.include_router(ingestion.router, prefix="/api")
+app.include_router(query.router, prefix="/api")
+app.include_router(document_select.router, prefix="/api")

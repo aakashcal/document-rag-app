@@ -1,0 +1,30 @@
+# Git
+.git
+.gitignore
+
+# Docker
+Dockerfile
+.dockerignore
+
+# Environment
+.env*
+!.env.example
+venv/
+env/
+*.pyc
+__pycache__/
+
+# OS specific
+.DS_Store
+
+# IDE specific
+.vscode/
+.idea/
+
+# Test artifacts
+.pytest_cache/
+htmlcov/
+.coverage
+
+# Local uploads (adjust if needed)
+uploads/ 
