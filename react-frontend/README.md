@@ -16,14 +16,13 @@ A React frontend for the Document RAG system that provides a user interface for 
 src/
 ├── components/
 │   ├── DocumentUpload.tsx    # Document upload component
-│   ├── DocumentSelector.tsx  # Multi-document selection component
-│   ├── QuestionInput.tsx     # Question input and submission form
-│   ├── AnswerDisplay.tsx     # Displays AI-generated answers with formatting
-│   └── DocumentList.tsx      # List of documents with delete functionality
-├── App.tsx                   # Main application component and layout
+│   └── DocumentSelector.tsx  # Multi-document selection component
+├── App.tsx                   # Main application component and layout (includes Q&A interface)
 ├── main.tsx                  # Application entry point
-└── api/
-    └── apiClient.ts          # API communication functions
+├── QAInterface.tsx           # Question and answer interface component
+├── App.css                   # Application styles
+├── index.css                 # Global styles
+└── assets/                   # Static assets
 ```
 
 ## Setup
