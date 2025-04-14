@@ -64,38 +64,6 @@ Access the interactive API documentation (Swagger UI) at `http://127.0.0.1:8000/
 *   OpenAI API (Embeddings & Chat Completion)
 *   Docker
 
-## Deployment Status & Next Steps (Cloud)
+## Optional: Cloud Deployment
 
-This backend application has been prepared for cloud deployment but requires further steps for a fully functional cloud environment.
-
-*   **Containerization:**
-    *   A `Dockerfile` is provided to containerize the application.
-    *   The image builds successfully and runs locally using Docker (`docker build -t rag-backend-image .`, `docker run -d -p 8000:8000 --env-file .env --name rag-backend-container rag-backend-image`).
-    *   The image has been pushed to Google Cloud Artifact Registry at: `asia-south1-docker.pkg.dev/document-rag-app/rag-app-repo/rag-backend:latest`.
-*   **Target Platform:** Google Cloud Run (`asia-south1` region).
-*   **Next Steps Required for Cloud Deployment:**
-    1.  **Database Setup (Cloud SQL):**
-        *   **Why:** Cloud Run requires a network-accessible database. Localhost DB is not reachable. A managed service like Cloud SQL is recommended for persistence and scalability.
-        *   **Action:** Create a PostgreSQL instance on Cloud SQL. Configure secure connection from Cloud Run (e.g., using Cloud SQL Auth Proxy/connector). Update `DB_*` environment variables for the Cloud Run service.
-    2.  **File Storage (Google Cloud Storage - GCS):**
-        *   **Why:** Cloud Run has an ephemeral filesystem. Files uploaded directly to the container will be lost on restarts/deployments. GCS provides persistent object storage.
-        *   **Action:** Create a GCS bucket. Modify the `app/services/storage.py` module to use the `google-cloud-storage` client library for uploading to and reading from the GCS bucket instead of the local filesystem. Grant the Cloud Run service account permissions to access the bucket.
-    3.  **Secrets Management (Secret Manager):**
-        *   **Why:** Avoid passing sensitive data (API keys, DB passwords) directly as environment variables.
-        *   **Action:** Store `OPENAI_API_KEY` and `DB_PASSWORD` in Google Cloud Secret Manager. Grant the Cloud Run service account permission to access these secrets. Modify the Cloud Run deployment configuration to mount secrets as environment variables. *(Partially started - Secrets created but not yet integrated into deployment)*.
-    4.  **Deploy Service (`gcloud run deploy`):**
-        *   **Action:** Use the `gcloud run deploy` command, specifying the Artifact Registry image URL, region, environment variables (pointing to secrets for sensitive values), and Cloud SQL connection details.
-
-## Technology Stack
-
-*   FastAPI
-*   Uvicorn
-*   SQLAlchemy
-*   PostgreSQL
-*   Pydantic / Pydantic-Settings
-*   OpenAI API Client
-*   Tiktoken
-*   PyMuPDF
-*   Tenacity
-*   Scikit-learn
-*   Docker
+This application is containerized using Docker (`Dockerfile`) and can be adapted for deployment on cloud platforms like Google Cloud Run, AWS ECS, or Azure Container Apps. This typically involves setting up a managed database (like Cloud SQL or RDS), potentially using cloud storage (like GCS or S3) instead of the local `uploads/` directory, and managing secrets securely.
