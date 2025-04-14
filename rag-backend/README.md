@@ -39,7 +39,7 @@ rag-backend/
     source venv/bin/activate  # or venv\Scripts\activate on Windows
     pip install -r requirements.txt
     ```
-4.  **Database:** Initialize the database schema:
+4.  **Database:** Initialize the database schema. This step also ensures the `vector` extension is enabled in PostgreSQL, which is required for vector similarity operations.
     ```bash
     python init_db.py
     ```
@@ -47,6 +47,14 @@ rag-backend/
     ```bash
     uvicorn app.main:app --reload --host 127.0.0.1 --port 8000
     ```
+
+## Vector Storage (PostgreSQL)
+
+*   **Database Extension:** The `init_db.py` script automatically enables the `vector` extension in your PostgreSQL database. This extension provides functions and operators for efficient vector similarity search.
+*   **Python Library:** This project uses the `pgvector` library (added to `requirements.txt`) to integrate vector operations with SQLAlchemy.
+*   **Embedding Column:** The `embedding` column in the `document_embeddings` table (`app/core/db.py`) is defined using `Vector(1536)` from `pgvector.sqlalchemy`, ensuring embeddings are stored in the native, optimized vector format.
+*   **Querying:** Similarity search (`app/api/query.py`) currently loads embeddings from the `Vector` column into NumPy arrays and performs cosine similarity calculations within the Python application using `scikit-learn`. 
+*   **Future Enhancement (Optional):** For potentially improved performance on very large datasets, you could update the query logic in `app/api/query.py` to use `pgvector`'s built-in distance operators (like `<->` for cosine distance) directly within the SQL query. This would leverage the database's optimized vector search capabilities, especially if combined with a vector index (e.g., HNSW or IVFFlat) on the embedding column.
 
 ## API Endpoints
 

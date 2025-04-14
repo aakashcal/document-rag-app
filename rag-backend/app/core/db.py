@@ -13,6 +13,7 @@ from sqlalchemy.dialects.postgresql import JSON
 from app.config import settings
 import urllib.parse
 import os
+from datetime import datetime
 
 # URL-encode password to handle special characters
 encoded_password = urllib.parse.quote_plus(settings.DB_PASSWORD)
@@ -72,34 +73,21 @@ class DocumentEmbedding(Base):
     """
     Database model for document embeddings.
     
-    Stores text chunks from documents along with their vector embeddings
-    for retrieval during RAG operations.
+    Each row represents a chunk of text from a document and its embedding vector.
+    The embedding is stored as a JSON representation of the embedding vector.
     """
     __tablename__ = "document_embeddings"
 
     id = Column(Integer, primary_key=True, index=True)
-    filename = Column(String, nullable=False)
-    chunk_id = Column(Integer, nullable=False)
-    chunk_text = Column(Text, nullable=False)
-    # For pgvector compatibility, we store embedding as JSON in text column
-    # When used with pgvector, this will be cast to vector type during queries
-    # The format must be a proper JSON array: [0.1, 0.2, ...]
-    embedding = Column(JSON, nullable=False)
-    created_at = Column(DateTime(timezone=True), server_default=func.now())
+    filename = Column(String, index=True)
+    chunk_id = Column(Integer)
+    chunk_text = Column(Text)
+    embedding = Column(JSON)  # Changed from Text to JSON to match PostgreSQL column type
+    created_at = Column(DateTime, default=datetime.now, index=True)
 
 # Create database tables
 def init_db():
-    """Initialize database with required extensions and tables."""
-    with engine.connect() as conn:
-        # Check if vector extension exists
-        result = conn.execute(text("SELECT EXISTS(SELECT 1 FROM pg_extension WHERE extname = 'vector');"))
-        has_vector = result.scalar()
-        
-        if not has_vector:
-            # Create vector extension if it doesn't exist
-            conn.execute(text("CREATE EXTENSION IF NOT EXISTS vector;"))
-            
-        # Create tables
-        Base.metadata.create_all(bind=engine)
-        
+    """Initialize database with required tables."""
+    # Simply create tables, no vector extension needed anymore
+    Base.metadata.create_all(bind=engine)
     return True

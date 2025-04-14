@@ -218,6 +218,7 @@ async def generate_embeddings(
     if len(validated_chunks) != len(chunks):
         # logger.info(f"Validated {len(validated_chunks)}/{len(chunks)} chunks for embedding") # Replaced
         # INFO: Validated {len(validated_chunks)}/{len(chunks)} chunks for embedding
+        pass  # Added pass to avoid empty if-block syntax error
     
     # Early exit if we only need to embed a single chunk (direct API call)
     if len(validated_chunks) == 1:
@@ -312,12 +313,7 @@ async def process_document(
         overlap=chunk_overlap, 
         model=model
     )
-    # logger.info( # Replaced
-    #     f"Chunking complete: {stats[\'chunk_count\']} chunks, "
-    #     f"{stats[\'total_tokens\']} tokens total, "
-    #     f"avg {stats[\'avg_chunk_tokens\']:.1f} tokens/chunk"
-    # )
-    # INFO: Chunking complete: {stats['chunk_count']} chunks, {stats['total_tokens']} tokens total, avg {stats['avg_chunk_tokens']:.1f} tokens/chunk
+
 
     # Generate embeddings
     embeddings = await generate_embeddings(

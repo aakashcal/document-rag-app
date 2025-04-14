@@ -26,7 +26,7 @@ class DocumentEmbeddingResponse(BaseModel):
     filename: str
     chunk_id: int
     chunk_text: str
-    embedding: str
+    embedding: str  # Keep as string type - the API should convert embeddings to JSON strings before returning
     created_at: datetime
 
     class Config:
