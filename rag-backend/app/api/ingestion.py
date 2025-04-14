@@ -52,41 +52,6 @@ async def test_error():
         logger.exception("Test error route caught exception")
         return PlainTextResponse(f"Error caught: {str(e)}", status_code=500)
 
-@router.post("/upload2")
-async def upload_document_simple(
-    file: UploadFile = File(...),
-):
-    """
-    A simplified upload endpoint for testing without any complex processing
-    """
-    try:
-        logger.debug(f"Processing upload request for file: {file.filename}")
-        
-        # Just save the file without further processing
-        upload_dir = "uploads"
-        os.makedirs(upload_dir, exist_ok=True)
-        
-        file_path = os.path.join(upload_dir, file.filename)
-        with open(file_path, "wb") as f:
-            content = await file.read()
-            f.write(content)
-            
-        return JSONResponse(
-            status_code=200, 
-            content={
-                "filename": file.filename, 
-                "size": len(content),
-                "saved_path": file_path
-            }
-        )
-    except Exception as e:
-        logger.error(f"Error in simple upload: {str(e)}")
-        logger.exception("Exception details:")
-        return JSONResponse(
-            status_code=500, 
-            content={"detail": str(e)}
-        )
-
 @router.post("/upload", response_model=List[DocumentEmbeddingResponse], status_code=status.HTTP_200_OK)
 async def upload_document(
     file: UploadFile = File(...),
