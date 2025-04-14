@@ -38,20 +38,6 @@ logger.setLevel(logging.DEBUG)
 
 router = APIRouter(prefix="/documents", tags=["documents"])
 
-# Add a general error handler route
-@router.get("/test-error", response_class=PlainTextResponse)
-async def test_error():
-    """
-    Test route to verify error handling works correctly
-    """
-    try:
-        logger.info("Testing error handling...")
-        # Intentionally raise an error
-        raise ValueError("Test error")
-    except Exception as e:
-        logger.exception("Test error route caught exception")
-        return PlainTextResponse(f"Error caught: {str(e)}", status_code=500)
-
 @router.post("/upload", response_model=List[DocumentEmbeddingResponse], status_code=status.HTTP_200_OK)
 async def upload_document(
     file: UploadFile = File(...),
