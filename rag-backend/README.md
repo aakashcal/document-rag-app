@@ -152,14 +152,14 @@ This denormalized approach offers several advantages:
 - Simpler code maintenance
 - Direct mapping between chunks and their embeddings
 
-### Extension Points
+### Future Development
 
-The system is designed for extensibility in several areas:
+The current implementation provides a foundation for RAG capabilities. Potential future enhancements could include:
 
-1. **New Document Types:** Add new extractors in the ingestion service
-2. **Alternative Embedding Models:** Modify the embedding service configuration
-3. **Custom Retrieval Logic:** Extend the retrieval service with additional ranking methods
-4. **Different LLMs:** Change the completion model in configuration
+- Support for additional document formats
+- Integration with alternative embedding models
+- Enhanced retrieval mechanisms
+- Exploration of different LLM providers
 
 ### RAG Workflow Overview
 
