@@ -8,15 +8,16 @@ This application leverages the power of large language models (LLMs) and vector 
 
 ## Application Screenshots
 
+### Backend API
+<div align="center">
+  <img src="./images/backend.png" alt="FastAPI Backend" width="800"/>
+</div>
+
 ### Frontend Interface
 <div align="center">
   <img src="./images/frontend.png" alt="React Frontend Interface" width="800"/>
 </div>
 
-### Backend API
-<div align="center">
-  <img src="./images/backend.png" alt="FastAPI Backend" width="800"/>
-</div>
 
 ## Project Structure
 
