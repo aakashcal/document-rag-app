@@ -9,6 +9,11 @@ This repository contains the backend component of a Retrieval Augmented Generati
 * **Document Selection:** Specify which documents to consider for Q&A
 * **Vector Storage:** Efficiently store and retrieve document embeddings using PostgreSQL
 
+## Supported File Types
+
+* **PDF files:** Full text extraction using PyMuPDF
+* **Text files:** Supports multiple encodings (UTF-8, Latin-1)
+
 ## Technology Stack
 
 * **Framework:** Python, FastAPI, SQLAlchemy
@@ -160,7 +165,7 @@ The system is designed for extensibility in several areas:
 
 1. **Document Ingestion**: 
    - Documents are uploaded through the API
-   - Text is extracted from various formats (PDF, TXT, etc.)
+   - Text is extracted from PDF and text files
    - The text is split into smaller chunks (typically paragraphs or sections)
    - Each chunk is processed to remove unnecessary whitespace and formatting
 
