@@ -40,6 +40,11 @@ document-rag-app/
     └── public/          # Public files
 ```
 
+## Additional Documentation
+
+- [Backend Documentation](./rag-backend/README.md)
+- [Frontend Documentation](./react-frontend/README.md)
+
 ## Technology Stack
 
 ### Backend
@@ -107,11 +112,6 @@ Access the application at http://localhost:5173
 
 - **Backend**: Can be deployed as a containerized service using Docker
 - **Frontend**: Deployed on Firebase hosting at https://document-rag-app-381fb.web.app
-
-## Additional Documentation
-
-- [Backend Documentation](./rag-backend/README.md)
-- [Frontend Documentation](./react-frontend/README.md)
 
 ## License
 
