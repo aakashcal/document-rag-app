@@ -41,7 +41,6 @@ rag-backend/
 │   ├── config.py
 │   └── main.py
 ├── uploads/               # Default directory for locally uploaded files
-├── tests/                 # Test files
 ├── .env                   # Local environment variables (not committed to git)
 ├── Dockerfile             # Instructions for building the Docker container image
 ├── requirements.txt       # Python package dependencies
