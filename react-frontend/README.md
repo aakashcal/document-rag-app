@@ -17,10 +17,10 @@ src/
 ├── components/
 │   ├── DocumentUpload.tsx    # Document upload component
 │   └── DocumentSelector.tsx  # Multi-document selection component
-├── App.tsx                   # Main application component and layout (includes Q&A interface)
+├── App.tsx                   # Main application component and layout
 ├── main.tsx                  # Application entry point
 ├── QAInterface.tsx           # Question and answer interface component
-├── App.css                   # Application styles
+├── App.css                   # Application styles (default Vite template)
 ├── index.css                 # Global styles
 └── assets/                   # Static assets
 ```
