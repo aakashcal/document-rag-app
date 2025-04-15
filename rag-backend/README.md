@@ -9,51 +9,6 @@ This repository contains the backend component of a Retrieval Augmented Generati
 * **Document Selection:** Specify which documents to consider for Q&A
 * **Vector Storage:** Efficiently store and retrieve document embeddings using PostgreSQL
 
-## RAG Implementation Details
-
-The application implements a complete Retrieval Augmented Generation pipeline:
-
-### Document Processing Flow
-1. **Document Ingestion**: 
-   - Documents are uploaded through the API
-   - Text is extracted from various formats (PDF, TXT, etc.)
-   - The text is split into smaller chunks (typically paragraphs or sections)
-   - Each chunk is processed to remove unnecessary whitespace and formatting
-
-2. **Embedding Generation**:
-   - Each text chunk is converted into a vector embedding using OpenAI's embedding model
-   - These high-dimensional vectors capture the semantic meaning of each text segment
-   - Embeddings are stored in PostgreSQL using the pgvector extension, which allows for efficient vector similarity search
-
-3. **Document Management**:
-   - Metadata about the document (filename, upload date, etc.) is stored alongside the chunks
-   - Documents can be selected or deselected for inclusion in the search context
-
-### Query Processing Flow
-1. **Query Embedding**:
-   - User questions are embedded using the same OpenAI embedding model
-   - This produces a vector representation semantically similar to the query
-
-2. **Semantic Retrieval**:
-   - The system performs a similarity search between the query embedding and all stored document chunk embeddings
-   - The most semantically relevant chunks are retrieved based on cosine similarity scores
-   - A configurable number of chunks is selected to form the context for the LLM
-
-3. **Context Assembly**:
-   - Retrieved chunks are assembled into a prompt context
-   - Document sources are tracked to provide attribution in responses
-
-4. **Answer Generation**:
-   - The assembled context and original question are sent to OpenAI's completion model
-   - The model generates a comprehensive answer based only on the provided context
-   - Responses include citations to source documents when appropriate
-
-This implementation ensures that answers are:
-* Grounded in your specific documents
-* Up-to-date with your latest information
-* Traceable to source materials
-* More accurate than generic LLM responses
-
 ## Technology Stack
 
 * **Framework:** Python, FastAPI, SQLAlchemy
@@ -126,16 +81,6 @@ DB_PASSWORD=your_db_password
 python init_db.py
 ```
 
-### Running the Application
-
-Start the backend server:
-
-```bash
-uvicorn app.main:app --reload
-```
-
-The API will be available at http://localhost:8000. API documentation is available at http://localhost:8000/docs.
-
 ## Implementation Details
 
 ### Document Processing Implementation
@@ -202,6 +147,47 @@ The system is designed for extensibility in several areas:
 2. **Alternative Embedding Models:** Modify the embedding service configuration
 3. **Custom Retrieval Logic:** Extend the retrieval service with additional ranking methods
 4. **Different LLMs:** Change the completion model in configuration
+
+### RAG Workflow Overview
+
+1. **Document Ingestion**: 
+   - Documents are uploaded through the API
+   - Text is extracted from various formats (PDF, TXT, etc.)
+   - The text is split into smaller chunks (typically paragraphs or sections)
+   - Each chunk is processed to remove unnecessary whitespace and formatting
+
+2. **Embedding Generation**:
+   - Each text chunk is converted into a vector embedding using OpenAI's embedding model
+   - These high-dimensional vectors capture the semantic meaning of each text segment
+   - Embeddings are stored in PostgreSQL using the pgvector extension, which allows for efficient vector similarity search
+
+3. **Document Management**:
+   - Metadata about the document (filename, upload date, etc.) is stored alongside the chunks
+   - Documents can be selected or deselected for inclusion in the search context
+
+4. **Query Processing**:
+   - User questions are embedded using the same OpenAI embedding model
+   - The system performs a similarity search between the query embedding and all stored document chunk embeddings
+   - The most semantically relevant chunks are retrieved based on cosine similarity scores
+   - Retrieved chunks are assembled into a prompt context with source tracking
+   - The assembled context and original question are sent to OpenAI's completion model
+   - The model generates a comprehensive answer based only on the provided context
+
+This implementation ensures that answers are:
+* Grounded in your specific documents
+* Up-to-date with your latest information
+* Traceable to source materials
+* More accurate than generic LLM responses
+
+### Running the Application
+
+Start the backend server:
+
+```bash
+uvicorn app.main:app --reload
+```
+
+The API will be available at http://localhost:8000. API documentation is available at http://localhost:8000/docs.
 
 ## API Endpoints
 
