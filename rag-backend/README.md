@@ -133,11 +133,19 @@ The query processing is handled by:
 
 ### Database Models
 
-The database schema includes the following key tables:
+The database schema uses a simplified structure with a single table in the "document-rag-app" database:
 
-1. **Documents:** Stores document metadata (filename, upload date, etc.)
-2. **Chunks:** Stores text segments with foreign keys to documents
-3. **Embeddings:** Stores vector embeddings linked to chunks
+**document_embeddings:** A consolidated table that stores:
+- Document metadata (filename)
+- Text chunks (chunk_id, chunk_text)
+- Vector embeddings (stored as JSON)
+- Metadata (creation timestamp)
+
+This denormalized approach offers several advantages:
+- Reduced query complexity (no joins needed)
+- Improved retrieval performance
+- Simpler code maintenance
+- Direct mapping between chunks and their embeddings
 
 ### Extension Points
 
