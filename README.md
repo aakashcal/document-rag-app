@@ -32,7 +32,7 @@ document-rag-app/
 │   │   ├── models/      # Data models
 │   │   └── services/    # Helper services
 │   ├── uploads/         # Document storage
-│   └── tests/           # Test files
+│  
 │
 └── react-frontend/      # React frontend UI
     ├── src/             # Source code
