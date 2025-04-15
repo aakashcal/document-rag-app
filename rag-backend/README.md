@@ -189,7 +189,7 @@ The current implementation provides a foundation for RAG capabilities. Potential
 This implementation ensures that answers are:
 * Grounded in your specific documents
 * Up-to-date with your latest information
-* Traceable to source materials
+* Based on identifiable source documents
 * More accurate than generic LLM responses
 
 ### Running the Application
