@@ -4,6 +4,7 @@ Loads settings from environment variables with defaults.
 Required for OpenAI API and database connections.
 """
 from pydantic_settings import BaseSettings, SettingsConfigDict
+import os
 
 class Settings(BaseSettings):
     """
@@ -32,11 +33,13 @@ class Settings(BaseSettings):
     CHUNK_OVERLAP: int = 200  # Default overlap between chunks in tokens
     EMBEDDING_BATCH_SIZE: int = 20  # Default batch size for embedding API calls
 
-    DB_HOST: str = "localhost"
-    DB_PORT: int = 5432
-    DB_NAME: str = "document-rag-app" 
-    DB_USER: str = "aakashsharma"
-    DB_PASSWORD: str = "Longitude@11"
+    # Database configuration from environment variables with defaults
+    # Only non-sensitive defaults are provided here
+    DB_HOST: str = os.getenv("DB_HOST", "localhost")
+    DB_PORT: int = int(os.getenv("DB_PORT", "5432"))
+    DB_NAME: str = os.getenv("DB_NAME", "document-rag-app")
+    DB_USER: str = os.getenv("DB_USER", "")  # No default for security
+    DB_PASSWORD: str = os.getenv("DB_PASSWORD", "")  # No default for security
 
     # Updated Config for Pydantic V2
     model_config = SettingsConfigDict(env_file=".env")
