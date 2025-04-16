@@ -191,6 +191,10 @@ This implementation ensures that answers are:
 * Based on identifiable source documents
 * More accurate than generic LLM responses
 
+### Testing
+
+Automated tests were not included due to the time-bound nature of this project. The `manual-tests/` directory contains a collection of endpoint test cases and example payloads used for manual verification during development.
+
 ### Running the Application
 
 Start the backend server:
