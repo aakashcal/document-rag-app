@@ -115,7 +115,7 @@ Access the application at http://localhost:5173
 
 ## Testing
 
-Automated tests were not included due to the time-bound nature of this project. The `manual-tests/` directory contains a collection of endpoint test cases and example payloads used for manual verification during development.
+This implementation prioritized feature completeness and user experience over automated test coverage. The `manual-tests/` directory contains a collection of endpoint test cases and example payloads used for manual verification during development. A comprehensive test suite could be easily added in future iterations using standard Python testing frameworks.
 
 ## License
 
