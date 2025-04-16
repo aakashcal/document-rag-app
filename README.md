@@ -32,7 +32,6 @@ document-rag-app/
 │   │   ├── models/      # Data models
 │   │   └── services/    # Helper services
 │   ├── uploads/         # Document storage
-│  
 │
 └── react-frontend/      # React frontend UI
     ├── src/             # Source code
@@ -113,6 +112,10 @@ Access the application at http://localhost:5173
 
 - **Backend**: Can be deployed as a containerized service using Docker
 - **Frontend**: Deployed on Firebase hosting at https://document-rag-app-381fb.web.app
+
+## Testing
+
+Automated tests were not included due to the time-bound nature of this project. The `manual-tests/` directory contains a collection of endpoint test cases and example payloads used for manual verification during development.
 
 ## License
 
